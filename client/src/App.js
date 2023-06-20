@@ -37,7 +37,7 @@ import { ModelService } from "./services/ModelService";
 import { exportService } from "./services/ExportService";
 import themeVariables from "./theme/variables";
 import { darkFabricTheme, darkFabricThemeHighContrast } from "./theme/DarkFabricTheme";
-import logo from "./assets/logo192.png";
+import logo from "./assets/Logo_Only.png";
 
 import "prismjs/components/prism-json";
 import "prismjs/themes/prism.css";
@@ -438,7 +438,7 @@ class App extends Component {
               <Stack horizontal className="top-bar">
                 <div>
                   <img src={logo} width={20} height={20} alt="" />
-                  <h1 className="top-bar-title">Azure Digital Twins Explorer</h1>
+                  <h1 className="top-bar-title">Propinquity CIP Engine</h1>
                 </div>
                 <AppCommandBar optionalComponents={optionalComponentsState}
                   optionalComponentsState={optionalComponentsState}
