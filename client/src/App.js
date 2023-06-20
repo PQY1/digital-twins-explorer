@@ -100,7 +100,7 @@ class App extends Component {
       exportedQuery: "",
       isLoading: false,
       layout: {
-        modelViewerWidth: 15,
+        modelViewerWidth: 0,
         drawerHeight: 20,
         showImport: false,
         importFile: null,
