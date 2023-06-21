@@ -42,7 +42,7 @@ class GraphViewerComponent extends React.Component {
       overlayItems: {},
       filterIsOpen: false,
       currentFilter: "filter",
-      propertyInspectorIsOpen: true,
+      propertyInspectorIsOpen: false,
       canShowAllRelationships: false,
       propInspectorDetailWidth: PROPERTY_INSPECTOR_DEFAULT_WIDTH,
       couldNotDisplay: false,

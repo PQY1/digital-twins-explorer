@@ -324,6 +324,7 @@ code[class*="language-"], pre[class*="language-"] {
 .top-area{
   background-color: var(--background-color5);
   position: relative;
+  display: none;
 }
 .query-explorer-header{
   position: absolute;
@@ -353,6 +354,7 @@ code[class*="language-"], pre[class*="language-"] {
   height: 100%;
 }
 .tab-pivot {
+  display: none;
   div[role=tablist] {
     background-color: $backgroundColor4;
     >div {
