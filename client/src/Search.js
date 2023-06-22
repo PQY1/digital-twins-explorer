@@ -4,7 +4,7 @@
 
 import React, { Component } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Pivot, PivotItem, Stack, Customizations, Icon, Text } from "office-ui-fabric-react/lib/";
+import { Pivot, PivotItem, Stack, Customizations, Icon, TextField, SearchBox } from "office-ui-fabric-react/lib/";
 
 import { withTranslation } from "react-i18next";
 
@@ -77,6 +77,7 @@ class Search extends Component {
     this.state = {
       exportedQuery: "",
       isLoading: false,
+      searchExpression: "",
       layout: {
         modelViewerWidth: 0,
         drawerHeight: 20,
@@ -142,8 +143,10 @@ class Search extends Component {
       </Stack>
         
     </div>
-    
+    <div className="search-area">
+    <SearchBox id="searchExpressionTextField" placeholder="Search for companies" onSearch={newValue => console.log('value is ' + newValue)} />
     <TabularViewComponent />
+    </div>
       </>
     );
   }

@@ -1,11 +1,18 @@
 {
     "app": {
         "tabularViewComponentConfig": {
-            "title": "RELATIONSHIPS",
-            "name": "Name",
-            "source": "Source",
-            "target": "Target",
-            "relationshipID": "Relationship ID"
+            "title": "Companies",
+            "name": "Company Name",
+            "cipDegree": "CIP Degrees",
+            "cipScore": "CIP Score",
+            "ceoName": "CEO Name",
+            "state": "State",
+            "country": "Country",
+            "annualRevenue": "Annual Revenue",
+            "numberOfIncidents": "Number of Incidents",
+            "lastUpdated": "Date of Last Update",
+            "subsidiaries": "subsidiaries",
+            "id": "ID"
         },
         "goldenLayoutConfig": {
             "queryComponent": "QUERY EXPLORER",
