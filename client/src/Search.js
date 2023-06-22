@@ -58,7 +58,44 @@ const contrastOptions = {
 };
 
 class Search extends Component {
+  optionalComponents = [
+    {
+      id: "console",
+      name: this.props.t("app.optionalComponents.console"),
+      showProp: "showConsole"
+    },
+    {
+      id: "output",
+      name: this.props.t("app.optionalComponents.output"),
+      showProp: "showOutput"
+    }
+  ]
 
+  constructor(props) {
+    
+    super(props);
+    this.state = {
+      exportedQuery: "",
+      isLoading: false,
+      layout: {
+        modelViewerWidth: 0,
+        drawerHeight: 20,
+        showImport: false,
+        importFile: null,
+        showTabularView: false,
+        showOutput: false,
+        showConsole: false
+      },
+      modelUploadResults: null,
+      mainContentSelectedKey: "graph-viewer",
+      leftPanelSelectedKey: "models",
+      contrast: contrastOptions.normal,
+      possibleDisplayNameProperties: [],
+      selectedDisplayNameProperty: "",
+      relationships: []
+    };
+  }
+  
   toggleOptionalComponent = id => {
     this.setState(prevState => {
       const newState = { ...prevState };
@@ -84,7 +121,7 @@ class Search extends Component {
   }
 
   render() {
-    const { isLoading, layout, mainContentSelectedKey, leftPanelSelectedKey, contrast, selectedDisplayNameProperty, possibleDisplayNameProperties } = this.state;
+    const { layout, contrast } = this.state;
     const optionalComponentsState = this.optionalComponents.map(p => {
       p.show = layout[p.showProp];
       return p;
@@ -103,7 +140,10 @@ class Search extends Component {
           toggleHighContrastMode={this.toggleHighContrastMode}
           contrast={contrast} />
       </Stack>
+        
     </div>
+    
+    <TabularViewComponent />
       </>
     );
   }

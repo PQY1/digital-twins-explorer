@@ -443,8 +443,10 @@ class App extends Component {
             <div role="banner" className="header" >
               <Stack horizontal className="top-bar">
                 <div>
+                  <a href="/">
                   <img src={logo} width={20} height={20} alt="" />
                   <h1 className="top-bar-title">Propinquity CIP Engine</h1>
+                  </a>
                 </div>
                 <AppCommandBar optionalComponents={optionalComponentsState}
                   optionalComponentsState={optionalComponentsState}
