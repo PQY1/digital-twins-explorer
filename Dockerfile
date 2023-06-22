@@ -1,4 +1,4 @@
-FROM node:current-slim
+FROM node:14-slim
 
 # Install required dependencies
 RUN apt-get update

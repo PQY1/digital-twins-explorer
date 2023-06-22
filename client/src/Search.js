@@ -59,11 +59,51 @@ const contrastOptions = {
 
 class Search extends Component {
 
+  toggleOptionalComponent = id => {
+    this.setState(prevState => {
+      const newState = { ...prevState };
+      switch (id) {
+        case "output":
+          newState.layout.showOutput = !prevState.layout.showOutput;
+          break;
+        case "console":
+          newState.layout.showConsole = !prevState.layout.showConsole;
+          break;
+        default:
+          break;
+      }
+      return newState;
+    });
+  }
+  
+  toggleHighContrastMode = isHighContrast => {
+    const contrast = isHighContrast ? contrastOptions.high : contrastOptions.normal;
+    settingsService.contrast = contrast;
+    this.setState({ contrast },
+      () => this.setCurrentContrast());
+  }
 
   render() {
-
+    const { isLoading, layout, mainContentSelectedKey, leftPanelSelectedKey, contrast, selectedDisplayNameProperty, possibleDisplayNameProperties } = this.state;
+    const optionalComponentsState = this.optionalComponents.map(p => {
+      p.show = layout[p.showProp];
+      return p;
+    });
     return (
       <>
+      <div role="banner" className="header" >
+      <Stack horizontal className="top-bar">
+        <div>
+          <img src={logo} width={20} height={20} alt="" />
+          <h1 className="top-bar-title">Propinquity CIP Engine</h1>
+        </div>
+        <AppCommandBar optionalComponents={optionalComponentsState}
+          optionalComponentsState={optionalComponentsState}
+          toggleOptionalComponent={this.toggleOptionalComponent}
+          toggleHighContrastMode={this.toggleHighContrastMode}
+          contrast={contrast} />
+      </Stack>
+    </div>
       </>
     );
   }
