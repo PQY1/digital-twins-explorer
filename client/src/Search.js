@@ -5,7 +5,6 @@
 import React, { Component } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Pivot, PivotItem, Stack, Customizations, Icon, TextField, SearchBox } from "office-ui-fabric-react/lib/";
-
 import { withTranslation } from "react-i18next";
 
 import GraphViewerComponent from "./components/GraphViewerComponent/GraphViewerComponent";
@@ -58,6 +57,7 @@ const contrastOptions = {
 };
 
 class Search extends Component {
+  
   optionalComponents = [
     {
       id: "console",
@@ -74,7 +74,7 @@ class Search extends Component {
   constructor(props) {
     
     super(props);
-    this.state = {
+    this.state = {      
       exportedQuery: "",
       isLoading: false,
       searchExpression: "",
@@ -95,6 +95,14 @@ class Search extends Component {
       selectedDisplayNameProperty: "",
       relationships: []
     };
+    
+  }
+  
+  async componentDidMount() {
+     
+    eventService.subscribeOpenTabularView((relationships) => { 
+      document.location = "/graph";
+    });
   }
   
   toggleOptionalComponent = id => {
@@ -154,3 +162,13 @@ class Search extends Component {
 }
 
 export default withTranslation()(Search);
+
+
+/*
+export default () => {
+  const history = useHistory();
+  withTranslation()(Search)
+  return (
+      <Search history={history} />
+  )
+}*/

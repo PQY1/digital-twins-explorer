@@ -3,6 +3,8 @@
 // Licensed under the MIT license.
 
 import React, { Component } from "react";
+
+import { useHistory } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { Pivot, PivotItem, Stack, Customizations, Icon, Text } from "office-ui-fabric-react/lib/";
 import cytoscape from "cytoscape";
@@ -125,6 +127,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    const defaultQuery = "SELECT * FROM digitaltwins";
+    eventService.publishQuery(defaultQuery);    
     eventService.subscribeImport(evt => {
       this.setState(prevState => ({ layout: { ...prevState.layout, showImport: true, importFile: evt.file } }), () => {
         this.setState({ mainContentSelectedKey: "import" }, () => {
@@ -133,13 +137,18 @@ class App extends Component {
           }, 200);
         });
       });
+
+      
     });
     eventService.subscribeExport((evt) => {
       this.createDownload(evt.query);
     });
-    eventService.subscribeOpenTabularView((relationships) => {
-      this.setState(prevState => ({ mainContentSelectedKey: "tabularView", layout: { ...prevState.layout, showTabularView: true }, relationships}));
-    });
+    eventService.subscribeOpenTabularView((relationships) => {      
+      const history = useHistory();
+      history.push("/graph");
+        this.setState(prevState => ({ mainContentSelectedKey: "tabularView", layout: { ...prevState.layout, showTabularView: true }, relationships}));
+      });
+      
     eventService.subscribeCloseComponent(component => {
       switch (component) {
         case "importComponent":
@@ -180,7 +189,7 @@ class App extends Component {
       }
       else if(e.keyCode == ENTER_KEY_CODE) {
         const defaultQuery = "SELECT * FROM digitaltwins";
-        eventService.publishQuery(defaultQuery);
+        eventService.publishQuery(defaultQuery);        
       }
     });
     this.applyStoredContrast();
