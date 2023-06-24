@@ -97,12 +97,6 @@ class Search extends Component {
     };
   }
   
-  async componentDidMount() {
-     
-    eventService.subscribeOpenTabularView((relationships) => { 
-      document.location = "/graph";
-    });
-  }
   
   toggleOptionalComponent = id => {
     this.setState(prevState => {

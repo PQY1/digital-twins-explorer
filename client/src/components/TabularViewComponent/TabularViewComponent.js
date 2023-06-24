@@ -6,7 +6,7 @@ import { DetailsList, SelectionMode } from "office-ui-fabric-react";
 import LoaderComponent from "../LoaderComponent/LoaderComponent";
 import { withTranslation } from "react-i18next";
 
-import { eventService } from "../../services/EventService";
+import { Link } from "react-router-dom";
 
 import "./TabularViewComponent.scss";
 
@@ -157,22 +157,20 @@ export class TabularViewComponent extends Component {
     return items;
   }
 
-  navigateToGraph = () => {
-    eventService.publishOpenTabularView();
-  }
-
   render() {
     const { isLoading, items } = this.state;
     return (
       <div className="ev-grid tabular-view">
-        <DetailsList
-          items={items}
-          onActiveItemChanged={this.navigateToGraph}
-          columns={this.columns}
-          isHeaderVisible
-          selectionMode={SelectionMode.single}
-          width="70%" />
-        {isLoading && <LoaderComponent />}
+        <Link to="/graph">
+          <DetailsList
+            items={items}
+            onActiveItemChanged={this.navigateToGraph}
+            columns={this.columns}
+            isHeaderVisible
+            selectionMode={SelectionMode.single}
+            width="70%" />
+          {isLoading && <LoaderComponent />}
+        </Link>
       </div>
     );
   }
