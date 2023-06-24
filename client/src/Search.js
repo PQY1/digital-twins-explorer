@@ -95,7 +95,6 @@ class Search extends Component {
       selectedDisplayNameProperty: "",
       relationships: []
     };
-    
   }
   
   async componentDidMount() {
