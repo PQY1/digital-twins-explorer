@@ -475,7 +475,7 @@ class App extends Component {
                 <Text as={"h2"} variant={'small'} className="query-explorer-header" aria-label={this.props.t("app.goldenLayoutConfig.queryComponent")}>{this.props.t("app.goldenLayoutConfig.queryComponent")}</Text>
                 <QueryComponent onQueryExecuted={() => this.handleMainContentPivotChange('graph-viewer')}/>
               </div>
-              <div className="main-area" >
+              <div className="main-area" style={{ height: `calc(100vh - 5px - ${(layout.showConsole || layout.showOutput) ? layout.drawerHeight : 0}%)` }} >
                 <Stack horizontal style={{ height: "100%" }}>
                   <div style={{width: `${layout.modelViewerWidth}%` }}>
                     <Pivot aria-label="Use left and right arrow keys to navigate" selectedKey={leftPanelSelectedKey} className="tab-pivot" headersOnly onLinkClick={this.handleLeftPanelPivotChange}>

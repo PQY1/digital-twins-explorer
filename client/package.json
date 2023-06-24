@@ -85,8 +85,7 @@
     "@typescript-eslint/parser": "^4.0.0",
     "eslint": "^7.5.0",
     "eslint-plugin-react": "^7.20.3",
-    "npm-force-resolutions": "0.0.10",    
-    "react-router-dom": "^5.1.2"
+    "npm-force-resolutions": "0.0.10"
   },
   "engines": {
     "node": ">=10"

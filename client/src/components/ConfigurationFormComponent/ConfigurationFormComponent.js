@@ -24,9 +24,9 @@ export class ConfigurationFormComponent extends Component {
     super(props);
     this.state = {
       showModal: false,
-      appAdtUrl: "https://adt-pwc-poc.api.wus2.digitaltwins.azure.net",
-      environmentOptions: [ "https://adt-pwc-poc.api.wus2.digitaltwins.azure.net" ],
-      isEnvironmentSelected: true
+      appAdtUrl: "",
+      environmentOptions: [ "https://adt-pwc-poc.api.wus2.digitaltwins.azure.net", "https://adt-kotvis.api.eus.digitaltwins.azure.net" ],
+      isEnvironmentSelected: false
     };
     this.environments = settingsService.environments;
   }
@@ -138,6 +138,8 @@ export class ConfigurationFormComponent extends Component {
       if (environment) {
         this.setState({ appAdtUrl: environment.name, ...environment.config });
       }
+    } else {
+      this.setState({appAdtUrl: i.key});
     }
   };
 

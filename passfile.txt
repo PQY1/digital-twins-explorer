@@ -1,0 +1,7 @@
+{
+  "appId": "ab9cf343-0bfc-4636-998c-8f7a4727f4e6",
+  "displayName": "az-cli-pwc-demo-user",
+  "fileWithCertAndPrivateKey": "/home/dell/tmpyj0dyrzt.pem",
+  "password": null,
+  "tenant": "919368bf-e989-46f9-bbb7-26c80e8e6b63"
+}
