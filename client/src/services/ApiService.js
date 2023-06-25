@@ -65,6 +65,29 @@ class CustomHttpClient {
 
 }
 
+class HookHttpClient {
+
+  constructor() {
+    this.client = new DefaultHttpClient();
+  }
+
+  sendRequest(httpRequest) {
+    const url = new URL(httpRequest.url);
+    httpRequest.headers.set("x-adt-host", url.hostname);
+
+    const baseUrl = new URL(window.location.origin);
+    url.host = baseUrl.host;
+    url.pathname = `/api/proxy/Hook${url.pathname}`;
+    url.protocol = baseUrl.protocol;
+    httpRequest.url = url.toString();
+
+    return this.client.sendRequest(httpRequest);
+  }
+
+}
+
+export const hookHttpClient = new HookHttpClient();
+
 class ApiService {
 
   constructor() {

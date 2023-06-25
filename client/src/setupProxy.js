@@ -37,12 +37,20 @@ module.exports = function (app) {
       destinationPath = "/api/proxy/Graph";
       tokenGraph = await tokenSetRefresh(tokenGraph, credentialGraph, "https://graph.microsoft.com/.default");
       requestToken = tokenGraph;
+    } else if (path.startsWith("/api/proxy/Hook")) {
+      destinationPath = "/api/proxy/Hook";
+      // L tokenGraph = await tokenSetRefresh(tokenGraph, credentialGraph, "https://graph.microsoft.com/.default");
+      // L requestToken = tokenGraph;
     } else {
       destinationPath = "/api/proxy";
       tokenDigitalTwins = await tokenSetRefresh(tokenDigitalTwins, credentialDigitalTwins, "https://digitaltwins.azure.net/.default");
       requestToken = tokenDigitalTwins;
     }
-    req.headers.authorization = `Bearer ${requestToken.token}`;
+
+    if (requestToken) {
+      req.headers.authorization = `Bearer ${requestToken.token}`;
+    }
+
     return path.replace(destinationPath, "");
   };
 

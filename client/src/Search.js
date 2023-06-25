@@ -4,8 +4,9 @@
 
 import React, { Component } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { Pivot, PivotItem, Stack, Customizations, Icon, TextField, SearchBox } from "office-ui-fabric-react/lib/";
+import { Pivot, PivotItem, Stack, Customizations, Icon, TextField, SearchBox, Button, DefaultButton } from "office-ui-fabric-react/lib/";
 import { withTranslation } from "react-i18next";
+import { WebResource, HttpMethods, HttpHeadersLike, HttpHeaders, RawHttpHeaders } from "@azure/core-http";
 
 import GraphViewerComponent from "./components/GraphViewerComponent/GraphViewerComponent";
 import ModelGraphViewerComponent from "./components/ModelGraphViewerComponent/ModelGraphViewerComponent";
@@ -23,10 +24,8 @@ import LoaderComponent from "./components/LoaderComponent/LoaderComponent";
 
 import { eventService } from "./services/EventService";
 import { settingsService } from "./services/SettingsService";
-import { ModelService } from "./services/ModelService";
-import { exportService } from "./services/ExportService";
-import themeVariables from "./theme/variables";
-import { darkFabricTheme, darkFabricThemeHighContrast } from "./theme/DarkFabricTheme";
+
+import { hookHttpClient } from "./services/ApiService";
 import logo from "./assets/Logo_Only.png";
 
 import "prismjs/components/prism-json";
@@ -122,6 +121,111 @@ class Search extends Component {
       () => this.setCurrentContrast());
   }
 
+  callWebHook = () => {
+
+    const payload = {
+      "@type": "ActiveCard",
+      "@context": "http://schema.org/extensions",
+      "themeColor": "1be3bb",
+      "summary": "Summary goes here",
+      "sections": [
+          {
+              "activityTitle": "**Title goes here**",
+              "activitySubtitle": "Subtitle goes here",
+              "activityImage": "https://demostoragepqy.blob.core.windows.net/publicshare/Logo_Stacked_Color_No_Tag_Icon.png",
+              "facts": [
+                  {
+                      "name": "Report date",
+                      "value": "Date/Time goes here"
+                  },
+                  {
+                      "name": "Status",
+                      "value": "Status goes here"
+                  },
+                  {
+                      "name": "Risk Assessment Score",
+                      "value": "<strong style='color:#e74714'>High</strong>"
+                  }
+              ],
+              "markdown": true
+          }
+      ],
+      "potentialAction": [
+          {
+              "@type": "ActionCard",
+              "name": "Add a comment",
+              "inputs": [
+                  {
+                      "@type": "TextInput",
+                      "id": "comment",
+                      "isMultiline": false,
+                      "title": "Add a comment here for this task"
+                  }
+              ],
+              "actions": [
+                  {
+                      "@type": "HttpPOST",
+                      "name": "Add comment",
+                      "target": "https://docs.microsoft.com/outlook/actionable-messages"
+                  }
+              ]
+          },
+          {
+              "@type": "OpenUri",
+              "name": "View Graph Node",
+              "targets": [
+                  {
+                      "os": "default",
+                      "uri": "https://demo.propinquity.one/graph"
+                  }
+              ]
+          },
+          {
+              "@type": "ActionCard",
+              "name": "Change status",
+              "inputs": [
+                  {
+                      "@type": "MultichoiceInput",
+                      "id": "list",
+                      "title": "Select a status",
+                      "isMultiSelect": "false",
+                      "choices": [
+                          {
+                              "display": "In Progress",
+                              "value": "1"
+                          },
+                          {
+                              "display": "Active",
+                              "value": "2"
+                          },
+                          {
+                              "display": "Closed",
+                              "value": "3"
+                          }
+                      ]
+                  }
+              ],
+              "actions": [
+                  {
+                      "@type": "HttpPOST",
+                      "name": "Save",
+                      "target": "https://docs.microsoft.com/outlook/actionable-messages"
+                  }
+              ]
+          }
+      ]
+    };
+
+    const request = {
+      url: "https://propinquity.webhook.office.com/webhookb2/b2b1947d-f98d-4e04-a492-6f58ad70db59@919368bf-e989-46f9-bbb7-26c80e8e6b63/IncomingWebhook/3c2df48d4ce14d1a9e3fc1a91d592060/b46773af-6cfc-4936-bd8e-8715f264103d"
+    };
+
+    const header = new HttpHeaders();
+    const resource = new WebResource(request.url, "POST", JSON.stringify(payload), null,  header, false, false);
+
+    hookHttpClient.sendRequest(resource);
+  }
+
   render() {
     const { layout, contrast } = this.state;
     const optionalComponentsState = this.optionalComponents.map(p => {
@@ -146,6 +250,7 @@ class Search extends Component {
     </div>
     <div className="search-area">
     <SearchBox id="searchExpressionTextField" placeholder="Search for companies" onSearch={newValue => console.log('value is ' + newValue)} />
+    <DefaultButton type="submit" onClick={this.callWebHook} ></DefaultButton>
     <TabularViewComponent />
     </div>
       </>
