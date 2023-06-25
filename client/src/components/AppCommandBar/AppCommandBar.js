@@ -14,6 +14,8 @@ import DeleteAllTwinsComponent from "./DeleteAllTwinsComponent/DeleteAllTwinsCom
 import "./AppCommandBar.scss";
 import { KeyboardShortcutsComponents } from "../KeyboardShortcutsComponents/KeyboardShortcutsComponents";
 
+import { CreateCIPComponent } from "../CreateCIPComponent/CreateCIPComponent";
+
 class AppCommandBar extends Component {
 
   constructor(props) {
@@ -22,8 +24,18 @@ class AppCommandBar extends Component {
     this.configure = React.createRef();
     this.preferences = React.createRef();
     this.keyboard = React.createRef();
+    this.cip = React.createRef();
     this.state = {
       farItems: [
+        {
+          key: "createCIP",
+          text: this.props.t("appCommandBar.keyboardShortcuts.text"),
+          ariaLabel: this.props.t("appCommandBar.keyboardShortcuts.ariaLabel"),
+          iconProps: { iconName: "IncidentTriangle" },
+          onClick: () => this.cip.current.open(),
+          iconOnly: true,
+          className: "app-toolbarButtons"
+        },
         {
           key: "keyboardShortcuts",
           text: this.props.t("appCommandBar.keyboardShortcuts.text"),
@@ -98,6 +110,7 @@ class AppCommandBar extends Component {
           t={this.props.t} />
         <DeleteAllTwinsComponent ref={this.delete} t={this.props.t} />
         <KeyboardShortcutsComponents ref={this.keyboard} t={this.props.t} />
+        <CreateCIPComponent ref={this.cip} t={this.props.t} />
       </div>
     );
   }
