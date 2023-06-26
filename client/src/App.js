@@ -117,7 +117,7 @@ class App extends Component {
       leftPanelSelectedKey: "models",
       contrast: contrastOptions.normal,
       possibleDisplayNameProperties: [],
-      selectedDisplayNameProperty: "",
+      selectedDisplayNameProperty: "DisplayName",
       relationships: []
     };
     for (const x of this.optionalComponents) {

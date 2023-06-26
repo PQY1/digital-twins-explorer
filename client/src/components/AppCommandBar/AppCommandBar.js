@@ -29,8 +29,8 @@ class AppCommandBar extends Component {
       farItems: [
         {
           key: "createCIP",
-          text: this.props.t("appCommandBar.keyboardShortcuts.text"),
-          ariaLabel: this.props.t("appCommandBar.keyboardShortcuts.ariaLabel"),
+          text: "Create CIP",
+          ariaLabel: "Create CIP",
           iconProps: { iconName: "IncidentTriangle" },
           onClick: () => this.cip.current.open(),
           iconOnly: true,
