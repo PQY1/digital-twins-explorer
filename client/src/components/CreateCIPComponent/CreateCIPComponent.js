@@ -21,7 +21,9 @@ export class CreateCIPComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      observationDate: new Date(),
+      summary: ""
     };
   }
 
@@ -39,21 +41,25 @@ export class CreateCIPComponent extends Component {
     this.setState({ showModal: false });
   }
 
+  onSummaryChange = evt => this.setState({ summary: evt.target.value });
+
+  onObservationDateChange = evt => this.setState({ observationDate: evt.target.value });
+
   sendCip = () => {
     const payload = {
       "@type": "ActiveCard",
       "@context": "http://schema.org/extensions",
       "themeColor": "1be3bb",
-      "summary": "Summary goes here",
+      "summary": this.state.summary,
       "sections": [
           {
-              "activityTitle": "**Title goes here**",
-              "activitySubtitle": "Subtitle goes here",
+              "activityTitle": "Interesting Luggage Detected",
+              "activitySubtitle": "LAX Airport",
               "activityImage": "https://demostoragepqy.blob.core.windows.net/publicshare/Logo_Stacked_Color_No_Tag_Icon.png",
               "facts": [
                   {
                       "name": "Report date",
-                      "value": "Date/Time goes here"
+                      "value": this.state.observationDate.toString()
                   },
                   {
                       "name": "Status",
@@ -62,6 +68,10 @@ export class CreateCIPComponent extends Component {
                   {
                       "name": "Risk Assessment Score",
                       "value": "<strong style='color:#e74714'>High</strong>"
+                  },
+                  {
+                      "name": "Summary",
+                      "value": this.state.summary
                   }
               ],
               "markdown": true
@@ -145,7 +155,7 @@ export class CreateCIPComponent extends Component {
   };
 
   render() {
-    const { showModal } = this.state;
+    const { showModal, observationDate, summary } = this.state;
 
     return (
       <ModalComponent isVisible={showModal} className="cip-modal">
@@ -156,10 +166,9 @@ export class CreateCIPComponent extends Component {
           <Label>Upload</Label>
           <input id="json-file-input" type="file" name="name" />
           <Label>Observation Date</Label>
-          <DatePicker
+          <DatePicker value={observationDate} onChange={this.onObservationDateChange}
             placeholder="Select a date..." />
-          <Label>Description</Label>
-          <TextField label="Standard" multiline rows={4} />
+          <TextField label="Description" multiline rows={8} text={summary} onChange={this.onSummaryChange} />
           <div className="btn-group">
             <DefaultButton
               className="modal-button close-button"
