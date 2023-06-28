@@ -29,8 +29,8 @@ class AppCommandBar extends Component {
       farItems: [
         {
           key: "createCIP",
-          text: "Create CIP",
-          ariaLabel: "Create CIP",
+          text: "Create Darwin Alert",
+          ariaLabel: "Create Darwin Alert",
           iconProps: { iconName: "IncidentTriangle" },
           onClick: () => this.cip.current.open(),
           iconOnly: true,

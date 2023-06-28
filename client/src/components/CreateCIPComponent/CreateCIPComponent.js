@@ -43,7 +43,7 @@ export class CreateCIPComponent extends Component {
 
   onSummaryChange = evt => this.setState({ summary: evt.target.value });
 
-  onObservationDateChange = evt => this.setState({ observationDate: evt.target.value });
+  onObservationDateChange = date => this.setState({ observationDate: date });
 
   sendCip = () => {
     const payload = {
@@ -108,6 +108,16 @@ export class CreateCIPComponent extends Component {
           ]
       },
       {
+        "@type": "OpenUri",
+        "name": "Open Report",
+        "targets": [
+            {
+                "os": "default",
+                "uri": "https://www.sec.gov/ix?doc=/Archives/edgar/data/0000720154/000110465922119766/tm2230829d1_8k.htm"
+            }
+        ]
+      },
+      {
           "@type": "ActionCard",
           "name": "Change status",
           "inputs": [
@@ -161,13 +171,13 @@ export class CreateCIPComponent extends Component {
       <ModalComponent isVisible={showModal} className="cip-modal">
         <div style={{ width: 650, height: 400 }}>
           <h2>
-            Create CIP
+            Create Darwin Alert
           </h2>
           <Label>Upload</Label>
           <input id="json-file-input" type="file" name="name" />
           <Label>Observation Date</Label>
-          <DatePicker value={observationDate} onChange={this.onObservationDateChange}
-            placeholder="Select a date..." />
+          <DatePicker value={observationDate} onSelectDate={this.onObservationDateChange}
+            placeholder="Select a date..." ariaLabel="Select a date..." />
           <TextField label="Description" multiline rows={8} text={summary} onChange={this.onSummaryChange} />
           <div className="btn-group">
             <DefaultButton
